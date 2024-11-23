@@ -18,6 +18,7 @@
 
 import QtQuick 2.2
 import MuseScore 3.0
+import "libs/TuningUtils.js" as TU
 
 MuseScore
 {
@@ -25,7 +26,7 @@ MuseScore
 	description: "Retune the selection, or the whole score if nothing is selected, to the harmonic scale.";
 	categoryCode: "playback";
 	thumbnailName: "HarmonicScaleTunerThumbnail.png";
-	version: "0.1.0-alpha";
+	version: "0.2.0-alpha";
 	
 	onRun:
 	{
