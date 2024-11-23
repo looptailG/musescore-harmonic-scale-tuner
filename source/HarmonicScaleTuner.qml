@@ -22,6 +22,7 @@ import MuseScore 3.0
 import "libs/TuningUtils.js" as TU
 import "libs/DateUtils.js" as DU
 import "libs/StringUtils.js" as SU
+import "libs/NoteUtils.js" as NU
 
 MuseScore
 {
@@ -29,11 +30,11 @@ MuseScore
 	description: "Retune the selection, or the whole score if nothing is selected, to the harmonic scale.";
 	categoryCode: "playback";
 	thumbnailName: "HarmonicScaleTunerThumbnail.png";
-	version: "0.5.0-alpha";
+	version: "0.6.0-alpha";
 	
 	property variant settings: {};
 	
-	property var referenceTpc;
+	property var referenceNote;
 	
 	// Amount of notes which were tuned successfully.
 	property var tunedNotes: 0;
@@ -172,7 +173,7 @@ MuseScore
 					cursor.staffIdx = staff;
 					cursor.rewindToTick(startTick);
 					
-					setReferenceNote(settings["DefaultReferenceNote"]);
+					referenceNote = settings["DefaultReferenceNote"];
 
 					// Loop on elements of a voice.
 					while (cursor.segment && (cursor.tick < endTick))
@@ -233,7 +234,8 @@ MuseScore
 	}
 
 	/**
-	 * Returns the amount of cents necessary to tune the input note to 31EDO.
+	 * Returns the amount of cents necessary to tune the input note to the
+	 * harmonic scale.
 	 */
 	function calculateTuningOffset(note)
 	{
@@ -241,7 +243,13 @@ MuseScore
 		
 		try
 		{
-			var tpc = note.tpc1;
+			var noteName = NU.getNoteLetter(note) + NU.getAsciiAccidental(note);
+			var scaleDegree = NU.getSemitoneDistance(noteName, referenceNote);
+			while (scaleDegree < 0)
+			{
+				scaleDegree += 12;
+			}
+			var tuningOffset = TU.harmonicScaleOffset(scaleDegree);
 			
 			tunedNotes += 1;
 			logger.trace("Final tuning offset: " + tuningOffset);
@@ -253,10 +261,5 @@ MuseScore
 			// Leave the tuning of the input note unchanged.
 			return note.tuning;
 		}
-	}
-	
-	function setReferenceNote(noteName)
-	{
-	
 	}
 }
