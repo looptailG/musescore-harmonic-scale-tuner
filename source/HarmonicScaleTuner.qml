@@ -33,6 +33,8 @@ MuseScore
 	
 	property variant settings: {};
 	
+	var referenceNote: "";
+	
 	// Amount of notes which were tuned successfully.
 	property var tunedNotes: 0;
 	// Total amount of notes encountered in the portion of the score to tune.
@@ -116,7 +118,7 @@ MuseScore
 			}
 			logger.currentLogLevel = parseInt(settings["LogLevel"]);
 			
-			logger.log("-- 31EDO Tuner -- Version " + version + " --");
+			logger.log("-- Harmonic Scale Tuner -- Version " + version + " --");
 			logger.log("Log level set to: " + logger.currentLogLevel);
 			
 			curScore.startCmd();
@@ -169,6 +171,8 @@ MuseScore
 					cursor.voice = voice;
 					cursor.staffIdx = staff;
 					cursor.rewindToTick(startTick);
+					
+					referenceNote = settings["DefaultReferenceNote"];
 
 					// Loop on elements of a voice.
 					while (cursor.segment && (cursor.tick < endTick))
@@ -225,6 +229,29 @@ MuseScore
 		finally
 		{
 			quit();
+		}
+	}
+
+	/**
+	 * Returns the amount of cents necessary to tune the input note to 31EDO.
+	 */
+	function calculateTuningOffset(note)
+	{
+		totalNotes += 1;
+		
+		try
+		{
+			
+			
+			tunedNotes += 1;
+			logger.trace("Final tuning offset: " + tuningOffset);
+			return tuningOffset;
+		}
+		catch (error)
+		{
+			logger.error("Encontered the following exception while tuning " + completeNoteName + ": " + error);
+			// Leave the tuning of the input note unchanged.
+			return note.tuning;
 		}
 	}
 }
