@@ -150,5 +150,5 @@ function getSemitoneDistance(n1, n2)
 	
 	const s1 = getSemitone(n1);
 	const s2 = getSemitone(n2);
-	return s2 - s1;
+	return s1 - s2;
 }

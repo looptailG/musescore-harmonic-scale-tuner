@@ -174,6 +174,7 @@ MuseScore
 					cursor.rewindToTick(startTick);
 					
 					referenceNote = settings["DefaultReferenceNote"];
+					logger.trace("Reference note reset to: " + referenceNote);
 
 					// Loop on elements of a voice.
 					while (cursor.segment && (cursor.tick < endTick))
@@ -244,11 +245,13 @@ MuseScore
 		try
 		{
 			var noteName = NU.getNoteLetter(note) + NU.getAsciiAccidental(note);
+			logger.trace("Tuning note: " + noteName);
 			var scaleDegree = NU.getSemitoneDistance(noteName, referenceNote);
 			while (scaleDegree < 0)
 			{
 				scaleDegree += 12;
 			}
+			logger.trace("Scale degree: " + scaleDegree);
 			var tuningOffset = TU.harmonicScaleOffset(scaleDegree);
 			
 			tunedNotes += 1;
