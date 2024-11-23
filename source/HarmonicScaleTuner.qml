@@ -29,11 +29,11 @@ MuseScore
 	description: "Retune the selection, or the whole score if nothing is selected, to the harmonic scale.";
 	categoryCode: "playback";
 	thumbnailName: "HarmonicScaleTunerThumbnail.png";
-	version: "0.4.0-alpha";
+	version: "0.5.0-alpha";
 	
 	property variant settings: {};
 	
-	var referenceNote: "";
+	property var referenceTpc;
 	
 	// Amount of notes which were tuned successfully.
 	property var tunedNotes: 0;
@@ -172,7 +172,7 @@ MuseScore
 					cursor.staffIdx = staff;
 					cursor.rewindToTick(startTick);
 					
-					referenceNote = settings["DefaultReferenceNote"];
+					setReferenceNote(settings["DefaultReferenceNote"]);
 
 					// Loop on elements of a voice.
 					while (cursor.segment && (cursor.tick < endTick))
@@ -241,7 +241,7 @@ MuseScore
 		
 		try
 		{
-			
+			var tpc = note.tpc1;
 			
 			tunedNotes += 1;
 			logger.trace("Final tuning offset: " + tuningOffset);
@@ -253,5 +253,10 @@ MuseScore
 			// Leave the tuning of the input note unchanged.
 			return note.tuning;
 		}
+	}
+	
+	function setReferenceNote(noteName)
+	{
+	
 	}
 }
