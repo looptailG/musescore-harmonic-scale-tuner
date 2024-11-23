@@ -249,7 +249,7 @@ MuseScore
 		}
 		catch (error)
 		{
-			logger.error("Encontered the following exception while tuning " + completeNoteName + ": " + error);
+			logger.error(error);
 			// Leave the tuning of the input note unchanged.
 			return note.tuning;
 		}
