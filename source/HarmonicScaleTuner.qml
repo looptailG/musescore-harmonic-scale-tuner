@@ -30,11 +30,12 @@ MuseScore
 	description: "Retune the selection, or the whole score if nothing is selected, to the harmonic scale.";
 	categoryCode: "playback";
 	thumbnailName: "HarmonicScaleTunerThumbnail.png";
-	version: "0.6.0-alpha";
+	version: "0.7.0-alpha";
 	
 	property variant settings: {};
 	
-	property var referenceNote;
+	property var referenceNote: "";
+	property var referenceNoteRegex: /^[A-Ga-g](x|#|b|bb|)$/;
 	
 	// Amount of notes which were tuned successfully.
 	property var tunedNotes: 0;
@@ -174,11 +175,33 @@ MuseScore
 					cursor.rewindToTick(startTick);
 					
 					referenceNote = settings["DefaultReferenceNote"];
-					logger.trace("Reference note reset to: " + referenceNote);
+					logger.log("Reference note reset to: " + referenceNote);
 
 					// Loop on elements of a voice.
 					while (cursor.segment && (cursor.tick < endTick))
 					{
+						// Check for reference note change.
+						for (var i = 0; i < cursor.segment.annotations.length; i++)
+						{
+							var annotation = cursor.segment.annotations[i];
+							var annotationPart = annotation.staff.part;
+							if (
+								((annotation.type === Element.STAFF_TEXT) && (4 * staff >= annotationPart.startTrack) && (4 * staff < annotationPart.endTrack))
+								|| (annotation.type === Element.SYSTEM_TEXT)
+							) {
+								var annotationText = annotation.text;
+								if (annotationText)
+								{
+									annotationText = annotationText.replace(/\s*/g, "");
+									if (referenceNoteRegex.test(annotationText))
+									{
+										referenceNote = annotationText.toUpperCase();
+										logger.log("Reference note set to: " + referenceNote);
+									}
+								}
+							}
+						}
+					
 						// Tune notes.
 						if (cursor.element && (cursor.element.type == Element.CHORD))
 						{
