@@ -30,12 +30,12 @@ MuseScore
 	description: "Retune the selection, or the whole score if nothing is selected, to the harmonic scale.";
 	categoryCode: "playback";
 	thumbnailName: "HarmonicScaleTunerThumbnail.png";
-	version: "1.0.0-rc1";
+	version: "1.0.0-rc2";
 	
 	property variant settings: {};
 	
 	property var referenceNote: "";
-	property var referenceNoteRegex: /^\s*(in)?\s*?([A-G])(x|#|b|bb|)\s*$/i;
+	property var referenceNoteRegex: /^\s*((in)?\s+?)?([A-G]|Do|Re|Mi|Fa|Sol|La|Si)(x|#|b|bb|\u{1D12B}|\u{266D}|\u{266E}|\u{266F}|\u{1D12A}|)\s*$/iu;
 	
 	// Amount of notes which were tuned successfully.
 	property var tunedNotes: 0;
@@ -195,8 +195,53 @@ MuseScore
 									var match = annotationText.match(referenceNoteRegex);
 									if (match)
 									{
-										var noteName = match[2].toUpperCase();
-										var accidental = match[3].toLowerCase();
+										var noteName = match[3].toUpperCase();
+										if (noteName.length > 1)
+										{
+											switch (noteName)
+											{
+												case "DO":
+												case "UT":
+													noteName = "C";
+													break;
+												
+												case "RE":
+													noteName = "D";
+													break;
+												
+												case "MI":
+													noteName = "E";
+													break;
+												
+												case "FA":
+													noteName = "F";
+													break;
+												
+												case "SOL":
+													noteName = "G";
+													break;
+												
+												case "LA":
+													noteName = "A";
+													break;
+												
+												case "SI":
+												case "TI":
+													noteName = "B";
+													break;
+												
+												default:
+													throw "Invalid note name: " + noteName;
+											}
+										}
+										
+										var accidental = match[4].toLowerCase();
+										accidental = accidental = accidental.replace("\u{1D12B}", "bb");
+										accidental = accidental.replace("\u{266D}", "b");
+										accidental = accidental.replace("\u{266E}", "");
+										accidental = accidental.replace("\u{266F}", "#");
+										accidental = accidental.replace("\u{1D12A}", "x");
+										
 										referenceNote = noteName + accidental;
 										logger.log("Reference note set to: " + referenceNote);
 									}
