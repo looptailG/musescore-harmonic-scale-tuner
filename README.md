@@ -37,6 +37,7 @@ This is an example of two changes of fundamental notes, first setting it to `B�
 
 
 ## Usage
+- Put in the score the texts to indicate the changes of fundamental note, if necessary.
 - If you want to tune only a portion of the score, select it before running the plugin.  If nothing is selected, the entire score will be tuned.
 - Launch the plugin: `Plugins` → `Playback` → `Harmonic Scale Tuner`
 
