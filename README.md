@@ -29,3 +29,7 @@ This text must be formatted as follows:
 - The accidental applied to the fundamental note, if any.  This can be written either by using the proper unicode characters for the musical accidentals, or with the ASCII characters `bb`, `b`, `#` and `x`.
 
 This text is not case sensitive, and can be safely made invisible without affecting the plugin.
+
+This is an example of two changes of fundamental notes, first setting it to `B♭`, and then to `A♭`:
+
+![immagine](https://github.com/user-attachments/assets/0eb1de21-6557-4541-94fc-55b57f4c38b2)
