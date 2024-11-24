@@ -200,11 +200,6 @@ MuseScore
 										referenceNote = noteName + accidental;
 										logger.log("Reference note set to: " + referenceNote);
 									}
-/*									if (referenceNoteRegex.test(annotationText))
-									{
-										referenceNote = annotationText.toUpperCase();
-										logger.log("Reference note set to: " + referenceNote);
-									}*/
 								}
 							}
 						}
