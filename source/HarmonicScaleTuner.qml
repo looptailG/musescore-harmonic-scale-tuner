@@ -35,7 +35,7 @@ MuseScore
 	property variant settings: {};
 	
 	property var referenceNote: "";
-	property var referenceNoteRegex: /^\s*((in)?\s+?)?([A-G]|Do|Re|Mi|Fa|Sol|La|Si)(x|#|b|bb|\u{1D12B}|\u{266D}|\u{266E}|\u{266F}|\u{1D12A}|)\s*$/iu;
+	property var referenceNoteRegex: /^\s*((in)?\s+?)?([A-G]|Do|Ut|Re|Mi|Fa|Sol|La|Si|Ti)(x|#|b|bb|\u{1D12B}|\u{266D}|\u{266E}|\u{266F}|\u{1D12A}|)\s*$/iu;
 	
 	// Amount of notes which were tuned successfully.
 	property var tunedNotes: 0;
