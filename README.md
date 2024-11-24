@@ -1,6 +1,7 @@
 # Harmonic Scale Tuner
 A Musescore plugin for tuning scores to the [Harmonic Scale](https://en.wikipedia.org/wiki/Harmonic_scale).
 
+
 ## Features
 This plugin can be used to tune the whole score, or only a portion of it, to the Harmonic scale.
 
@@ -33,3 +34,14 @@ This text is not case sensitive, and can be safely made invisible without affect
 This is an example of two changes of fundamental notes, first setting it to `B♭`, and then to `A♭`:
 
 ![immagine](https://github.com/user-attachments/assets/0eb1de21-6557-4541-94fc-55b57f4c38b2)
+
+
+## Usage
+- If you want to tune only a portion of the score, select it before running the plugin.  If nothing is selected, the entire score will be tuned.
+- Launch the plugin: `Plugins` → `Playback` → `Harmonic Scale Tuner`
+
+
+## Installing
+- Download the file <code>harmonic_scale_tuner_x.y.z.zip</code>, where <code>x.y.z</code> is the version of the plugin.  You can find the latest version [here](https://github.com/looptailG/musescore-harmonic-scale-tuner/releases/latest).
+- Extract the folder `harmonic_scale_tuner` and move it to Musescore's plugin folder.
+- Follow the steps listed [here](https://musescore.org/en/handbook/4/plugins#enable-disable) to enable the plugin.
