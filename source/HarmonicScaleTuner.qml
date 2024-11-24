@@ -30,12 +30,12 @@ MuseScore
 	description: "Retune the selection, or the whole score if nothing is selected, to the harmonic scale.";
 	categoryCode: "playback";
 	thumbnailName: "HarmonicScaleTunerThumbnail.png";
-	version: "0.7.0-alpha";
+	version: "1.0.0-rc1";
 	
 	property variant settings: {};
 	
 	property var referenceNote: "";
-	property var referenceNoteRegex: /^[A-Ga-g](x|#|b|bb|)$/;
+	property var referenceNoteRegex: /^\s*(in)?\s*?([A-G])(x|#|b|bb|)\s*$/i;
 	
 	// Amount of notes which were tuned successfully.
 	property var tunedNotes: 0;
@@ -192,12 +192,19 @@ MuseScore
 								var annotationText = annotation.text;
 								if (annotationText)
 								{
-									annotationText = annotationText.replace(/\s*/g, "");
-									if (referenceNoteRegex.test(annotationText))
+									var match = annotationText.match(referenceNoteRegex);
+									if (match)
+									{
+										var noteName = match[2].toUpperCase();
+										var accidental = match[3].toLowerCase();
+										referenceNote = noteName + accidental;
+										logger.log("Reference note set to: " + referenceNote);
+									}
+/*									if (referenceNoteRegex.test(annotationText))
 									{
 										referenceNote = annotationText.toUpperCase();
 										logger.log("Reference note set to: " + referenceNote);
-									}
+									}*/
 								}
 							}
 						}
