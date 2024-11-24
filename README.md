@@ -27,7 +27,7 @@ This text must be formatted as follows:
 
 - Optionally it can have the text `in` at the beginning, followed by a space character.
 - The new fundamental note, written either by using the english note names, or the solfege syllables.
-- The accidental applied to the fundamental note, if any.  This can be written either by using the proper unicode characters for the musical accidentals `𝄫`, `♭`, `♮`, `♯` and `𝄪`, or with the ASCII characters `bb`, `b`, `#` and `x`.
+- The accidental applied to the fundamental note, if any.  This can be written either by using the proper unicode characters for the musical accidentals `𝄫`, `♭`, `♯` and `𝄪`, or with the ASCII characters `bb`, `b`, `#` and `x`.
 
 This text is not case sensitive, and can be safely made invisible without affecting the plugin.
 
