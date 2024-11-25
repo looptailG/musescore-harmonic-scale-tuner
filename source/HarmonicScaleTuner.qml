@@ -34,6 +34,7 @@ MuseScore
 	
 	property variant settings: {};
 	
+	// Fundamental note of the harmonic series.
 	property var referenceNote: "";
 	property var referenceNoteRegex: /^\s*((in)?\s+?)?([A-G]|Do|Ut|Re|Mi|Fa|Sol|La|Si|Ti)(bb|b|#|x|\u{1D12B}|\u{266D}|\u{266E}|\u{266F}|\u{1D12A}|)\s*$/iu;
 	
@@ -185,6 +186,9 @@ MuseScore
 						{
 							var annotation = cursor.segment.annotations[i];
 							var annotationPart = annotation.staff.part;
+							// For a Staff Text element it is necessary to check
+							// the track, to ensure that the text is for the
+							// current staff.
 							if (
 								((annotation.type === Element.STAFF_TEXT) && (4 * staff >= annotationPart.startTrack) && (4 * staff < annotationPart.endTrack))
 								|| (annotation.type === Element.SYSTEM_TEXT)
