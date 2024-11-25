@@ -30,7 +30,7 @@ MuseScore
 	description: "Retune the selection, or the whole score if nothing is selected, to the harmonic scale.";
 	categoryCode: "playback";
 	thumbnailName: "HarmonicScaleTunerThumbnail.png";
-	version: "1.0.0-rc3";
+	version: "1.0.0";
 	
 	property variant settings: {};
 	
