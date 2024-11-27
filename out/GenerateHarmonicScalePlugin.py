@@ -3,31 +3,31 @@ import shutil
 import re
 
 
-_PLUGIN_NAME = "harmonic_scale_tuner"
-_SOURCE_FOLDER_PATH = "../source"
-_README_PATH = "../README.md"
-_LICENSE_PATH = "../LICENSE"
-_THUMBNAIL_PATH = "../thumbnail/HarmonicScaleTunerThumbnail.png"
-_FILES_TO_COPY = [
-    _LICENSE_PATH,
-    _THUMBNAIL_PATH,
+PLUGIN_FOLDER_NAME = "harmonic_scale_tuner"
+SOURCE_FOLDER = "../source"
+LOGS_FOLDER = f"{PLUGIN_FOLDER_NAME}/logs"
+README_PATH = "../README.md"
+LICENSE_PATH = "../LICENSE"
+THUMBNAIL_PATH = "../thumbnail/HarmonicScaleTunerThumbnail.png"
+FILES_TO_COPY = [
+    LICENSE_PATH,
+    THUMBNAIL_PATH,
 ]
 
 
 def main():
     try:
-        shutil.copytree(_SOURCE_FOLDER_PATH, _PLUGIN_NAME, dirs_exist_ok=True)
-        for file_path in _FILES_TO_COPY:
+        shutil.copytree(SOURCE_FOLDER, PLUGIN_FOLDER_NAME, dirs_exist_ok=True)
+        for file_path in FILES_TO_COPY:
             file_name = file_path[file_path.rindex("/") + 1:]
-            shutil.copyfile(file_path, f"{_PLUGIN_NAME}/{file_name}")
-        logs_folder = f"{_PLUGIN_NAME}/logs"
-        if not os.path.exists(logs_folder):
-            os.makedirs(logs_folder)
+            shutil.copyfile(file_path, f"{PLUGIN_FOLDER_NAME}/{file_name}")
+        if not os.path.exists(LOGS_FOLDER):
+            os.makedirs(LOGS_FOLDER)
 
         version_number = get_version_number()
-        output_folder_name = f"{_PLUGIN_NAME}_{version_number}"
+        output_folder_name = f"{PLUGIN_FOLDER_NAME}_{version_number}"
         temporary_folder = "tmp"
-        shutil.copytree(_PLUGIN_NAME, f"{temporary_folder}/{_PLUGIN_NAME}", dirs_exist_ok=True)
+        shutil.copytree(PLUGIN_FOLDER_NAME, f"{temporary_folder}/{PLUGIN_FOLDER_NAME}", dirs_exist_ok=True)
         shutil.make_archive(output_folder_name, "zip", temporary_folder)
         shutil.rmtree(temporary_folder)
 
@@ -38,9 +38,9 @@ def main():
 
 def get_version_number() -> str:
     version_number_pattern = re.compile(r"version:\s*\"(.+)\";")
-    for root, _, files in os.walk(_SOURCE_FOLDER_PATH):
+    for root, _, files in os.walk(SOURCE_FOLDER):
         for file_name in files:
-            if simplify_file_name(_PLUGIN_NAME) not in simplify_file_name(file_name):
+            if simplify_file_name(PLUGIN_FOLDER_NAME) not in simplify_file_name(file_name):
                 continue
 
             file_path = os.path.join(root, file_name)
